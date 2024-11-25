@@ -22,6 +22,16 @@
             </thead>
             <tbody id="results-body"></tbody>
         </table>
+        <h2>Leaderboard</h2>
+        <table id="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body"></tbody>
+        </table>
         <button id="restart-quiz" class="btn">Restart Quiz</button>
     </div>
     <script>
@@ -37,6 +47,26 @@
             newRow.innerHTML = `<td>${answer.question}</td><td>${answer.userAnswer}</td><td>${answer.correctAnswer}</td>`;
             resultsBody.appendChild(newRow);
         });
+
+        // Leaderboard functionality
+        const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+        leaderboard.push({ name: userName, score: parseInt(score) });
+        
+        // Sort leaderboard by score in descending order
+        leaderboard.sort((a, b) => b.score - a.score);
+        
+        // Keep only the top 5 scores
+        const topScores = leaderboard.slice(0, 5);
+        const leaderboardBody = document.getElementById('leaderboard-body');
+        
+        topScores.forEach(entry => {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `<td>${entry.name}</td><td>${entry.score}</td>`;
+            leaderboardBody.appendChild(newRow);
+        });
+
+        // Save updated leaderboard back to localStorage
+        localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
 
         document.getElementById('restart-quiz').addEventListener('click', () => {
             localStorage.removeItem('score');
