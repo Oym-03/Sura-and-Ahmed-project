@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="home-container">
+        <h1>Welcome to the Quiz!</h1>
+        <button id="start-quiz" class="btn">Start Quiz</button>
+    </div>
+    <script>
+        document.getElementById('start-quiz').addEventListener('click', () => {
+            const userName = window.prompt("Please enter your name:");
+            if (userName) {
+                localStorage.setItem('userName', userName);
+                window.location.href = 'quiz.html';
+            }
+        });
+    </script>
+</body>
+</html>

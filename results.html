@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="results-container">
+        <h1>Quiz Results</h1>
+        <div id="score-container">
+            <h2>Your Score: <span id="score"></span></h2>
+        </div>
+        <table id="results-table">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Your Answer</th>
+                    <th>Correct Answer</th>
+                </tr>
+            </thead>
+            <tbody id="results-body"></tbody>
+        </table>
+        <button id="restart-quiz" class="btn">Restart Quiz</button>
+    </div>
+    <script>
+        const userName = localStorage.getItem('userName');
+        const score = localStorage.getItem('score');
+        const userAnswers = JSON.parse(localStorage.getItem('userAnswers'));
+        
+        document.getElementById('score').innerText = score;
+        const resultsBody = document.getElementById('results-body');
+
+        userAnswers.forEach(answer => {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `<td>${answer.question}</td><td>${answer.userAnswer}</td><td>${answer.correctAnswer}</td>`;
+            resultsBody.appendChild(newRow);
+        });
+
+        document.getElementById('restart-quiz').addEventListener('click', () => {
+            localStorage.removeItem('score');
+            localStorage.removeItem('userAnswers');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
