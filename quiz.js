@@ -99,6 +99,7 @@ function startGame() {
     currentQuestionIndex = 0;
     score = 0;
     userAnswers = [];
+    document.getElementById('total-questions').innerText = questions.length;
     showQuestion(questions[currentQuestionIndex]);
 }
 
@@ -114,6 +115,7 @@ function showQuestion(question) {
         button.addEventListener('click', () => selectAnswer(answer, question));
         answerButtons.appendChild(button);
     });
+    document.getElementById('current-question').innerText = currentQuestionIndex + 1;
 }
 
 function selectAnswer(answer, question) {
